@@ -35,10 +35,12 @@ public class PaginaCadastroPerfil extends javax.swing.JFrame {
      */
     
     ResourceBundle traducoesRecebidas;
+    PaginaPrincipal paginaPrincipal;
     
-    public PaginaCadastroPerfil(ResourceBundle traducoes){
+    public PaginaCadastroPerfil(ResourceBundle traducoes, PaginaPrincipal paginaPrincipal){
         initComponents();
         traducoesRecebidas = traducoes;
+        this.paginaPrincipal = paginaPrincipal;
         AlterarLinguagemInformacoes();
     }
     
@@ -89,6 +91,7 @@ public class PaginaCadastroPerfil extends javax.swing.JFrame {
         label_pesquisa = new javax.swing.JLabel();
         text_pesquisa = new javax.swing.JTextField();
         btn_pesquisar = new javax.swing.JButton();
+        btn_Voltar = new javax.swing.JButton();
 
         jLabel7.setText("jLabel7");
 
@@ -134,6 +137,13 @@ public class PaginaCadastroPerfil extends javax.swing.JFrame {
         btn_pesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_pesquisarActionPerformed(evt);
+            }
+        });
+
+        btn_Voltar.setText("< Voltar");
+        btn_Voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_VoltarActionPerformed(evt);
             }
         });
 
@@ -183,7 +193,10 @@ public class PaginaCadastroPerfil extends javax.swing.JFrame {
                             .addComponent(text_email, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(text_data_criacao, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(text_compania, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(text_seguidores))))
+                            .addComponent(text_seguidores)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_Voltar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -232,10 +245,13 @@ public class PaginaCadastroPerfil extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_biografia)
                     .addComponent(text_biografia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btn_Voltar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarActionPerformed
@@ -258,6 +274,11 @@ public class PaginaCadastroPerfil extends javax.swing.JFrame {
             Logger.getLogger(PaginaCadastroPerfil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_pesquisarActionPerformed
+
+    private void btn_VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VoltarActionPerformed
+        paginaPrincipal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_VoltarActionPerformed
 
     private void AdicionarValoresJsonAosCampos(JSONObject json_response) throws IOException{
         String avatar_url = json_response.get("avatar_url").toString();
@@ -309,39 +330,9 @@ public class PaginaCadastroPerfil extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PaginaCadastroPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PaginaCadastroPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PaginaCadastroPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PaginaCadastroPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PaginaCadastroPerfil().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Voltar;
     private javax.swing.JButton btn_pesquisar;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel label_biografia;
