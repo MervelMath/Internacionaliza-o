@@ -20,13 +20,14 @@ import java.util.logging.Logger;
  */
 public class PaginaPrincipal extends javax.swing.JFrame {
 
-    String idiomaRadioButton = "";    
-    
+    String idiomaRadioButton = "";
+
     /**
      * Creates new form PaginaPrincipal
      */
     public PaginaPrincipal() {
         initComponents();
+        btn_Proximo.setEnabled(false);
     }
 
     /**
@@ -43,7 +44,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_Proximo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,6 +53,11 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Menu");
 
         jRadioButton1.setText("Inglês");
+        jRadioButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RadioButtonsChangeSelected(evt);
+            }
+        });
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
@@ -59,14 +65,23 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         });
 
         jRadioButton2.setText("Espanhol");
+        jRadioButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RadioButtonsChangeSelected(evt);
+            }
+        });
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
             }
         });
 
-        jRadioButton3.setSelected(true);
         jRadioButton3.setText("Português");
+        jRadioButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RadioButtonsChangeSelected(evt);
+            }
+        });
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton3ActionPerformed(evt);
@@ -75,14 +90,19 @@ public class PaginaPrincipal extends javax.swing.JFrame {
 
         jLabel2.setText("Selecione o Idioma:");
 
-        jButton1.setText("Próximo >");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_Proximo.setText("Próximo >");
+        btn_Proximo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_ProximoActionPerformed(evt);
             }
         });
 
         jButton2.setText("Fechar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +128,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(btn_Proximo)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -126,30 +146,32 @@ public class PaginaPrincipal extends javax.swing.JFrame {
                 .addComponent(jRadioButton3)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btn_Proximo)
                     .addComponent(jButton2))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_ProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ProximoActionPerformed
         Locale localCorrente;
         ResourceBundle traducoes = null;
         String idiomaEscolhido = idiomaRadioButton;
         InputStream newInputStream;
-        
-        String nomeArquivo = "\\target\\classes\\MessagesBundle_"+idiomaEscolhido+".properties";
+
+        String nomeArquivo = "\\target\\classes\\MessagesBundle_" + idiomaEscolhido + ".properties";
         try {
             newInputStream = Files.newInputStream(Paths.get(System.getProperty("user.dir") + nomeArquivo));
             traducoes = new PropertyResourceBundle(newInputStream);
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        PaginaCadastroPerfil pagina = new PaginaCadastroPerfil(traducoes);
+        PaginaCadastroPerfil pagina = new PaginaCadastroPerfil(traducoes, this);
         pagina.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_ProximoActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         jRadioButton2.setSelected(false);
@@ -169,43 +191,21 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         idiomaRadioButton = "pt_BR";
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
+    private void RadioButtonsChangeSelected(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RadioButtonsChangeSelected
+        if (!btn_Proximo.isEnabled())
+            btn_Proximo.setEnabled(true);
+    }//GEN-LAST:event_RadioButtonsChangeSelected
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PaginaPrincipal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_Proximo;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
