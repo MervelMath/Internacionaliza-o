@@ -139,9 +139,10 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         ResourceBundle traducoes = null;
         String idiomaEscolhido = idiomaRadioButton;
         InputStream newInputStream;
-        String nomeArquivo = "src\\main\\resources\\MessagesBundle_"+idiomaEscolhido+".properties";
+        
+        String nomeArquivo = "\\target\\classes\\MessagesBundle_"+idiomaEscolhido+".properties";
         try {
-            newInputStream = Files.newInputStream(Paths.get(nomeArquivo));
+            newInputStream = Files.newInputStream(Paths.get(System.getProperty("user.dir") + nomeArquivo));
             traducoes = new PropertyResourceBundle(newInputStream);
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
