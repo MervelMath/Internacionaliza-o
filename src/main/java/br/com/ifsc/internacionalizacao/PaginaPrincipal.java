@@ -137,20 +137,17 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Locale localCorrente;
         ResourceBundle traducoes = null;
-        
         String idiomaEscolhido = idiomaRadioButton;
-        
         InputStream newInputStream;
-        String nomeArquivo = "C:\\projetos\\simple-java-i18n\\src\\main\\resources\\MessagesBundle_"+idiomaEscolhido+".properties";
+        String nomeArquivo = "src\\main\\resources\\MessagesBundle_"+idiomaEscolhido+".properties";
         try {
             newInputStream = Files.newInputStream(Paths.get(nomeArquivo));
             traducoes = new PropertyResourceBundle(newInputStream);
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         PaginaCadastroPerfil pagina = new PaginaCadastroPerfil(traducoes);
-        pagina.setVisible(true);        
+        pagina.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
